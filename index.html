@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Anniversary ❤️</title>
+<style>
+  :root{--pink:#ff5d8f;--gold:#ffd27a}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:Georgia,serif;color:#fff;background:linear-gradient(160deg,#2b0a3d,#7a1f5c 55%,#ff5d8f);text-align:center;user-select:none}
+  #deck{position:fixed;inset:0;z-index:2}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 18px 90px;opacity:0;pointer-events:none;transform:translateX(60px) scale(.97);transition:opacity .7s,transform .7s;overflow-y:auto}
+  .slide.active{opacity:1;pointer-events:auto;transform:none}
+  .slide.past{transform:translateX(-60px) scale(.97)}
+  h1{font-size:clamp(2rem,8vw,4rem);color:var(--gold);text-shadow:0 0 25px var(--pink);line-height:1.15}
+  h2{font-size:clamp(1.5rem,5vw,2.4rem);margin-bottom:18px;color:var(--gold)}
+  p{opacity:.93;line-height:1.5}
+  .hint{margin-top:14px;font-size:.9rem;opacity:.7}
+  button{background:var(--pink);color:#fff;border:0;padding:14px 30px;border-radius:40px;font-size:1.1rem;cursor:pointer;box-shadow:0 0 20px var(--pink);margin-top:20px;font-family:inherit;transition:transform .2s}
+  button:hover{transform:scale(1.07)}
+
+  /* nav */
+  #nav{position:fixed;bottom:18px;left:0;right:0;z-index:10;display:none;align-items:center;justify-content:center;gap:16px}
+  #nav .arrow{margin:0;width:52px;height:52px;padding:0;font-size:1.5rem;border-radius:50%}
+  #nav .arrow:disabled{opacity:.25;cursor:default;box-shadow:none}
+  #dots{display:flex;gap:7px}
+  #dots i{width:9px;height:9px;border-radius:50%;background:#fff4;transition:.3s}
+  #dots i.on{background:var(--gold);transform:scale(1.5)}
+
+  /* intro gift */
+  .gift{font-size:6rem;animation:beat 1s infinite;cursor:pointer}
+  @keyframes beat{50%{transform:scale(1.2)}}
+
+  /* counter */
+  .counter{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+  .counter div{background:#ffffff18;border:1px solid #fff3;border-radius:16px;padding:14px 18px;min-width:84px;backdrop-filter:blur(4px)}
+  .counter b{display:block;font-size:2rem;color:var(--gold)}
+  .counter span{font-size:.8rem;opacity:.8}
+
+  /* quote */
+  #quote{min-height:110px;font-size:1.4rem;font-style:italic;max-width:600px;transition:opacity .5s}
+
+  /* reasons */
+  .hearts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:520px;width:100%}
+  .heart{aspect-ratio:1;border-radius:18px;background:#ffffff18;border:1px solid #fff3;display:flex;align-items:center;justify-content:center;padding:8px;font-size:.85rem;cursor:pointer;transition:.4s}
+  .heart .em{font-size:2.4rem}
+  .heart.open{background:linear-gradient(135deg,#ff5d8f,#7a1f5c);transform:rotateY(360deg)}
+
+  /* gallery carousel */
+  .stage{position:relative;width:min(88vw,420px);aspect-ratio:1}
+  .photo{position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,#ff5d8f,#7a1f5c) center/cover;display:flex;align-items:center;justify-content:center;font-size:4rem;border:4px solid #fff4;box-shadow:0 10px 40px #0008;transition:transform .5s,opacity .5s;cursor:pointer}
+  .photo.hide{opacity:0;transform:scale(.8) rotate(8deg);pointer-events:none}
+  .cap{margin-top:16px;min-height:28px;font-style:italic;color:var(--gold)}
+  .mini{display:flex;gap:14px;justify-content:center}
+  .mini button{padding:8px 18px;margin-top:14px;font-size:1rem}
+
+  /* timeline */
+  .tl{max-width:480px;width:100%;text-align:left;border-left:3px solid var(--pink);padding-left:20px}
+  .tl .ev{margin-bottom:18px;opacity:0;transform:translateX(-20px);transition:.6s}
+  .tl .ev.show{opacity:1;transform:none}
+  .tl .ev b{color:var(--gold)}
+
+  /* question */
+  #noBtn{position:relative;background:#555;box-shadow:none}
+
+  video{width:100%;max-width:640px;max-height:60vh;border-radius:16px;box-shadow:0 0 30px #0008}
+  #big{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:98}
+  #big img{max-width:92%;max-height:90%;border-radius:12px}
+
+  .fl{position:fixed;pointer-events:none;z-index:1;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+  .bloom{position:fixed;pointer-events:none;z-index:60;font-size:2rem;animation:bloom 1.6s ease-out forwards}
+  @keyframes bloom{0%{transform:scale(0) rotate(0)}40%{transform:scale(1.8) rotate(120deg)}100%{transform:scale(1) translateY(-80px) rotate(260deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- 1 intro -->
+  <div class="slide" data-lock="1">
+    <div class="gift" onclick="openGift()">🎁</div>
+    <p style="margin:15px;font-size:1.2rem">A little surprise for you…</p>
+    <button onclick="openGift()">Open ❤️</button>
+  </div>
+
+  <!-- 2 title -->
+  <div class="slide">
+    <h1>Happy Anniversary,<br><span id="wife"></span> 💖</h1>
+    <div class="counter" id="counter"></div>
+    <p class="hint">Tap anywhere to make flowers bloom 🌸<br>Use the arrows below ➡️</p>
+  </div>
+
+  <!-- 3 our story -->
+  <div class="slide" data-enter="showTimeline">
+    <h2>Our Story 💞</h2>
+    <div class="tl" id="tl"></div>
+  </div>
+
+  <!-- 4 reasons -->
+  <div class="slide">
+    <h2>Reasons I Love You 💘</h2>
+    <div class="hearts" id="hearts"></div>
+    <p class="hint">Tap each heart to open it</p>
+  </div>
+
+  <!-- 5 photos -->
+  <div class="slide">
+    <h2>Our Memories 📸</h2>
+    <div class="stage" id="stage"></div>
+    <div class="cap" id="cap"></div>
+    <div class="mini"><button onclick="photoGo(-1)">◀</button><button onclick="photoGo(1)">▶</button></div>
+    <p class="hint">Tap a photo to see it bigger</p>
+  </div>
+
+  <!-- 6 quotes -->
+  <div class="slide">
+    <h2>For You 🌹</h2>
+    <div id="quote"></div>
+    <button onclick="nextQuote()">Another one 💌</button>
+  </div>
+
+  <!-- 7 video -->
+  <div class="slide" data-leave="pauseVideo">
+    <h2>Our Moments 🎬</h2>
+    <video id="vid" controls playsinline preload="metadata"><source src="video.mp4" type="video/mp4"></video>
+  </div>
+
+  <!-- 8 question -->
+  <div class="slide">
+    <h2>One Last Question 💍</h2>
+    <p id="ask" style="font-size:1.3rem;max-width:480px"></p>
+    <div>
+      <button onclick="yes()">Yes! 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+    <p id="yesMsg" style="margin-top:20px;font-size:1.2rem;color:var(--gold)"></p>
+  </div>
+
+  <!-- 9 promise -->
+  <div class="slide" data-enter="burst">
+    <h2>My Promise 💍</h2>
+    <p style="max-width:520px;font-size:1.15rem" id="msg"></p>
+    <button onclick="burst()">Love You Forever ❤️</button>
+    <p style="margin-top:30px">— <span id="me"></span></p>
+    <button style="background:#ffffff22;box-shadow:none;font-size:.9rem;padding:10px 22px" onclick="go(1-cur)">↺ Watch again</button>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="arrow" id="prev" onclick="go(-1)">‹</button>
+  <div id="dots"></div>
+  <button class="arrow" id="next" onclick="go(1)">›</button>
+</div>
+
+<div id="big" onclick="this.style.display='none'"><img></div>
+
+<script>
+/* ====== EDIT ONLY THIS PART ====== */
+const WIFE   = "Dimpi";
+const ME     = "Salil";
+const START  = "2021-11-21";   // YYYY-MM-DD
+const PHOTOS = [               // put these files next to index.html; add/remove freely
+  {src:"p1.jpg", cap:"Where it all began"},
+  {src:"p2.jpg", cap:"My favourite smile"},
+  {src:"p3.jpg", cap:"Just us"},
+  {src:"p4.jpg", cap:"Adventures together"},
+  {src:"p5.jpg", cap:"Home is wherever you are"},
+  {src:"p6.jpg", cap:"Forever to go"}
+];
+const MSG    = "Thank you for every smile, every sacrifice and every beautiful day. With you, home is wherever you are. Happy Anniversary, my love!";
+const ASK    = "Will you keep being my partner, my best friend and my forever?";
+const YES_MSG= "I knew it! I love you more every day 💖";
+const QUOTES = [
+  "In all the world, there is no heart for me like yours.",
+  "You are my today and all of my tomorrows.",
+  "I love you not only for what you are, but for what I am when I am with you.",
+  "Every love story is beautiful, but ours is my favourite.",
+  "With you, every ordinary moment becomes my favourite memory.",
+  "You are my sunshine on the cloudiest days."
+];
+const STORY = [   // edit with your real milestones
+  {t:"21 Nov 2021", d:"The day we started our forever 💍"},
+  {t:"Every festival & trip", d:"Memories I'd relive a thousand times ✈️"},
+  {t:"15 Mar 2026", d:"The day we got our little world and that's our SON NEER 💖"},
+  {t:"Today", d:"Still choosing you, every single day ❤️"}
+];
+const REASONS = [   // 6 hearts; edit the text
+  ["😊","Your smile lights up my world"],
+  ["🤗","You make every place feel like home"],
+  ["💪","Your strength inspires me"],
+  ["🍲","Your care in every little thing"],
+  ["😂","You make me laugh like no one else"],
+  ["🌙","You are my peace at the end of the day"]
+];
+/* ================================= */
+
+const $ = id => document.getElementById(id), E = ["🌸","🌹","🌷","🌺","💮","🌼","💖"];
+$("wife").textContent = WIFE; $("me").textContent = ME; $("msg").textContent = MSG; $("ask").textContent = ASK;
+
+/* ---------- slide engine ---------- */
+const slides = [...document.querySelectorAll(".slide")];
+let cur = -1, unlocked = false;
+const dots = $("dots");
+slides.forEach(() => dots.appendChild(document.createElement("i")));
+
+function show(n){
+  if(n < 0 || n >= slides.length) return;
+  const old = slides[cur];
+  if(old){
+    const lv = old.dataset.leave; if(lv) window[lv]();
+  }
+  slides.forEach((s,i) => { s.classList.toggle("active", i === n); s.classList.toggle("past", i < n); });
+  cur = n;
+  [...dots.children].forEach((d,i) => d.classList.toggle("on", i === n));
+  $("prev").disabled = n <= 1;
+  $("next").disabled = n === slides.length - 1;
+  $("nav").style.display = n === 0 ? "none" : "flex";
+  const en = slides[n].dataset.enter; if(en) window[en]();
+}
+function go(d){ if(!unlocked) return; show(Math.max(1, Math.min(slides.length-1, cur + d))); }
+
+document.addEventListener("keydown", e => {
+  if(e.key === "ArrowRight" || e.key === " ") go(1);
+  if(e.key === "ArrowLeft") go(-1);
+});
+let tx = null;
+document.addEventListener("touchstart", e => tx = e.touches[0].clientX, {passive:true});
+document.addEventListener("touchend", e => {
+  if(tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if(Math.abs(dx) > 60) go(dx < 0 ? 1 : -1);
+});
+
+function openGift(){ unlocked = true; burst(); setTimeout(() => show(1), 700); }
+
+/* ---------- days counter ---------- */
+function buildCounter(){
+  const s = new Date(START), n = new Date();
+  let y = n.getFullYear() - s.getFullYear(), m = n.getMonth() - s.getMonth(), d = n.getDate() - s.getDate();
+  if(d < 0){ m--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+  if(m < 0){ y--; m += 12; }
+  const total = Math.floor((n - s) / 864e5);
+  const items = [[y,"years"],[m,"months"],[d,"days"],[total,"total days"]];
+  $("counter").innerHTML = items.map(([v,l]) => `<div><b data-v="${v}">0</b><span>${l}</span></div>`).join("");
+  document.querySelectorAll(".counter b").forEach(b => {
+    const v = +b.dataset.v; let c = 0; const step = Math.max(1, Math.ceil(v / 60));
+    const t = setInterval(() => { c = Math.min(v, c + step); b.textContent = c.toLocaleString(); if(c >= v) clearInterval(t); }, 25);
+  });
+}
+const _show = show;
+show = function(n){ _show(n); if(n === 1) buildCounter(); };
+
+/* ---------- timeline ---------- */
+$("tl").innerHTML = STORY.map(s => `<div class="ev"><b>${s.t}</b><p>${s.d}</p></div>`).join("");
+function showTimeline(){
+  document.querySelectorAll(".ev").forEach((e,i) => { e.classList.remove("show"); setTimeout(() => e.classList.add("show"), 400 + i*700); });
+}
+
+/* ---------- reasons ---------- */
+REASONS.forEach(([em, tx]) => {
+  const h = document.createElement("div"); h.className = "heart"; h.innerHTML = `<span class="em">💗</span>`;
+  h.onclick = () => { if(h.classList.contains("open")) return; h.classList.add("open"); h.innerHTML = `<span>${em}<br>${tx}</span>`; bloom(h.getBoundingClientRect().left + 30, h.getBoundingClientRect().top + 30); };
+  $("hearts").appendChild(h);
+});
+
+/* ---------- photos ---------- */
+let pi = 0;
+PHOTOS.forEach((p,i) => {
+  const el = document.createElement("div");
+  el.className = "photo" + (i ? " hide" : ""); el.style.backgroundImage = `url(${p.src})`; el.textContent = "💖";
+  const img = new Image(); img.onload = () => el.textContent = ""; img.src = p.src;
+  el.onclick = () => { $("big").style.display = "flex"; $("big").firstChild.src = p.src; };
+  $("stage").appendChild(el);
+});
+function photoGo(d){
+  const ps = $("stage").children;
+  ps[pi].classList.add("hide");
+  pi = (pi + d + ps.length) % ps.length;
+  ps[pi].classList.remove("hide");
+  $("cap").textContent = PHOTOS[pi].cap;
+}
+$("cap").textContent = PHOTOS[0].cap;
+
+/* ---------- quotes ---------- */
+let q = 0;
+function nextQuote(){
+  $("quote").style.opacity = 0;
+  setTimeout(() => { $("quote").textContent = "“" + QUOTES[q++ % QUOTES.length] + "”"; $("quote").style.opacity = 1; }, 300);
+}
+nextQuote();
+
+/* ---------- video ---------- */
+function pauseVideo(){ try{ $("vid").pause(); }catch(e){} }
+
+/* ---------- the question ---------- */
+const no = $("noBtn");
+function dodge(e){
+  e.preventDefault();
+  no.style.position = "fixed";
+  no.style.left = Math.random() * (innerWidth - 110) + "px";
+  no.style.top = Math.random() * (innerHeight - 160) + "px";
+  no.style.zIndex = 20;
+}
+no.addEventListener("mouseover", dodge);
+no.addEventListener("touchstart", dodge, {passive:false});
+no.addEventListener("click", dodge);
+function yes(){ $("yesMsg").textContent = YES_MSG; burst(); }
+
+/* ---------- effects ---------- */
+function petal(){
+  const f = document.createElement("div");
+  f.className = "fl"; f.textContent = E[Math.random()*E.length|0];
+  f.style.left = Math.random()*100 + "vw"; f.style.top = "-40px";
+  f.style.fontSize = 16 + Math.random()*22 + "px";
+  f.style.animationDuration = 5 + Math.random()*6 + "s";
+  document.body.appendChild(f); setTimeout(() => f.remove(), 11000);
+}
+function bloom(x, y){
+  const b = document.createElement("div");
+  b.className = "bloom"; b.textContent = E[Math.random()*E.length|0];
+  b.style.left = x - 16 + "px"; b.style.top = y - 16 + "px";
+  document.body.appendChild(b); setTimeout(() => b.remove(), 1700);
+}
+function burst(){ for(let i=0;i<40;i++) setTimeout(() => bloom(Math.random()*innerWidth, Math.random()*innerHeight), i*50); }
+setInterval(petal, 400);
+document.addEventListener("click", e => { if(e.target.tagName !== "BUTTON") bloom(e.clientX, e.clientY); });
+
+show(0);
+</script>
+</body>
+</html>
